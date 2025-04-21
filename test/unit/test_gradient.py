@@ -55,7 +55,7 @@ class TestGradient(unittest.TestCase):
   def test_add(self): self._test_two_input_function(lambda x,y: x+y)
   def test_mul(self): self._test_two_input_function(lambda x,y: x*y)
 
-  # chain ruletest_ex
+  # chain rule
   def test_chain(self): self._test_one_input_function(lambda x: x.sin().sqrt())
   def test_chain_binop(self): self._test_two_input_function(lambda x,y: (x*y)+x*y)
   def test_big_add_sin(self): self._test_two_input_function(lambda x,y: x.sin()+3.0/y)
