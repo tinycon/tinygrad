@@ -55,7 +55,7 @@ class TestGradient(unittest.TestCase):
   def test_add(self): self._test_two_input_function(lambda x,y: x+y)
   def test_mul(self): self._test_two_input_function(lambda x,y: x*y)
 
-  # chain rule
+  # chain ruletest_ex
   def test_chain(self): self._test_one_input_function(lambda x: x.sin().sqrt())
   def test_chain_binop(self): self._test_two_input_function(lambda x,y: (x*y)+x*y)
   def test_big_add_sin(self): self._test_two_input_function(lambda x,y: x.sin()+3.0/y)
@@ -89,6 +89,13 @@ class TestTensorGradient(unittest.TestCase):
     dx, dy = z.gradient(x, y)
     self.assertListEqual(dx.tolist(), [[4.0], [4.0], [4.0]])
     self.assertListEqual(dy.tolist(), [[3.0, 3.0, 3.0, 3.0]])
+
+  def test_expand_gradient(self):
+    x = Tensor([[1.0], [2.0], [3.0]])
+    z = x.expand(3, 4)
+    dz = Tensor.ones_like(z)
+    dx = z.gradient(x, gradient=dz)[0]
+    self.assertListEqual(dx.tolist(), [[4.0], [4.0], [4.0]])
 
   def test_non_scalar_output(self):
     x = Tensor([1.0, 2.0, 3.0])
